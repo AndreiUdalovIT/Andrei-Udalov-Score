@@ -1,8 +1,14 @@
 {
   "singleQuote": true,
   "semi": true,
-  "printWidth": 100,
+  "printWidth": 85,
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindStylesheet": "./src/app/globals.css"
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-classnames",
+    "prettier-plugin-merge"
+  ],
+  "tailwindStylesheet": "./src/app/globals.css",
+  "tailwindFunctions": ["cn", "cva"],
+  "customFunctions": ["cn", "cva"]
 }

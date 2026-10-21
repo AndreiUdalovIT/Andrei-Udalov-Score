@@ -6,8 +6,25 @@ export default defineConfig({
   // Vite 8 resolves the `@/*` alias from tsconfig.json natively.
   resolve: { tsconfigPaths: true },
   test: {
-    environment: 'jsdom',
-    include: ['src/**/*.test.{ts,tsx}'],
-    setupFiles: ['./vitest.setup.ts'],
+    // Projects inherit the root config (plugins, resolve) by default.
+    projects: [
+      {
+        // Pure logic (model, utils) — no DOM, starts fast.
+        test: {
+          name: 'unit',
+          environment: 'node',
+          include: ['src/**/*.test.ts'],
+        },
+      },
+      {
+        // React components.
+        test: {
+          name: 'dom',
+          environment: 'jsdom',
+          include: ['src/**/*.test.tsx'],
+          setupFiles: ['./vitest.setup.ts'],
+        },
+      },
+    ],
   },
 });

@@ -1,26 +1,216 @@
 @import 'tailwindcss';
 
+/* Dark theme follows the `dark` class on <html> (set by next-themes),
+   so a manual choice can override the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Values come from the «Токены и компоненты» design sheet. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base */
+  --background: oklch(0.975 0.003 255);
+  --foreground: oklch(0.2 0.012 255);
+  --card: oklch(1 0 0);
+  --muted: oklch(0.95 0.005 255);
+  --muted-foreground: oklch(0.47 0.014 255);
+  --subtle-foreground: oklch(0.6 0.012 255);
+  --border: oklch(0.9 0.007 255);
+
+  /* Brand — the only accent: CTAs, active items, favorites */
+  --primary: oklch(0.52 0.2 290);
+  --primary-foreground: oklch(0.99 0.005 290);
+  --primary-soft: oklch(0.52 0.2 290 / 0.1);
+
+  /* Match result and status — always paired with a letter or a word */
+  --win: oklch(0.52 0.14 155);
+  --draw: oklch(0.5 0.012 255);
+  --loss: oklch(0.53 0.19 25);
+  --status-live: oklch(0.55 0.14 65);
+
+  /* Table zones */
+  --zone-ucl: oklch(0.56 0.14 245);
+  --zone-uel: oklch(0.7 0.15 60);
+  --zone-uecl: oklch(0.6 0.1 190);
+  --zone-playoff: oklch(0.55 0.15 340);
+  --zone-releg: oklch(0.53 0.19 25);
+
+  /* Charts — Okabe–Ito palette, safe for color blindness */
+  --chart-1: oklch(0.56 0.14 245);
+  --chart-2: oklch(0.7 0.15 60);
+  --chart-3: oklch(0.58 0.11 170);
+  --chart-4: oklch(0.75 0.15 90);
+  --chart-5: oklch(0.55 0.15 340);
+  --chart-draw: oklch(0.78 0.01 255);
+
+  /* Backdrop under dialogs and sheets, same in both themes */
+  --overlay: oklch(0.12 0.01 255 / 0.62);
 }
 
+.dark {
+  --background: oklch(0.17 0.008 255);
+  --foreground: oklch(0.96 0.004 255);
+  --card: oklch(0.205 0.009 255);
+  --muted: oklch(0.245 0.01 255);
+  --muted-foreground: oklch(0.72 0.012 255);
+  --subtle-foreground: oklch(0.6 0.012 255);
+  --border: oklch(0.295 0.011 255);
+
+  --primary: oklch(0.72 0.16 290);
+  --primary-foreground: oklch(0.17 0.03 290);
+  --primary-soft: oklch(0.72 0.16 290 / 0.14);
+
+  --win: oklch(0.76 0.15 155);
+  --draw: oklch(0.74 0.01 255);
+  --loss: oklch(0.7 0.17 25);
+  --status-live: oklch(0.8 0.14 75);
+
+  --zone-ucl: oklch(0.7 0.12 245);
+  --zone-uel: oklch(0.78 0.14 60);
+  --zone-uecl: oklch(0.74 0.1 190);
+  --zone-playoff: oklch(0.74 0.13 340);
+  --zone-releg: oklch(0.7 0.17 25);
+
+  --chart-1: oklch(0.7 0.12 245);
+  --chart-2: oklch(0.78 0.14 60);
+  --chart-3: oklch(0.74 0.11 170);
+  --chart-4: oklch(0.87 0.14 95);
+  --chart-5: oklch(0.7 0.13 340);
+  --chart-draw: oklch(0.56 0.012 255);
+}
+
+/* Aliases. Declared on every theme root, so they resolve against
+   the active theme even inside a nested `.dark` block. */
+:root,
+.dark {
+  /* Names shadcn/ui components expect */
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
+  --secondary: var(--muted);
+  --secondary-foreground: var(--foreground);
+  --accent: var(--muted);
+  --accent-foreground: var(--foreground);
+  --destructive: var(--loss);
+  --input: var(--border);
+  --ring: var(--primary);
+
+  /* Match prediction: home / away */
+  --chart-home: var(--chart-1);
+  --chart-away: var(--chart-2);
+
+  /* Compare page: team A is blue, team B is orange on every block */
+  --team-a: var(--chart-home);
+  --team-b: var(--chart-away);
+}
+
+/* `inline` makes utilities reference the variables directly,
+   so `bg-card` switches together with the theme. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+
+  --color-win: var(--win);
+  --color-draw: var(--draw);
+  --color-loss: var(--loss);
+  --color-status-live: var(--status-live);
+
+  --color-zone-ucl: var(--zone-ucl);
+  --color-zone-uel: var(--zone-uel);
+  --color-zone-uecl: var(--zone-uecl);
+  --color-zone-playoff: var(--zone-playoff);
+  --color-zone-releg: var(--zone-releg);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-draw: var(--chart-draw);
+  --color-chart-home: var(--chart-home);
+  --color-chart-away: var(--chart-away);
+  --color-team-a: var(--team-a);
+  --color-team-b: var(--team-b);
+
+  --color-overlay: var(--overlay);
+
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Theme-independent scales from the design sheet. */
+@theme {
+  /* Type scale: `text-h1` sets size, line height and weight together. */
+  --text-score-xl: 3rem;
+  --text-score-xl--line-height: 3.5rem;
+  --text-score-xl--font-weight: 600;
+  --text-display: 2rem;
+  --text-display--line-height: 2.5rem;
+  --text-display--font-weight: 600;
+  --text-h1: 1.5rem;
+  --text-h1--line-height: 2rem;
+  --text-h1--font-weight: 600;
+  --text-h2: 1.125rem;
+  --text-h2--line-height: 1.5rem;
+  --text-h2--font-weight: 600;
+  --text-h3: 0.9375rem;
+  --text-h3--line-height: 1.25rem;
+  --text-h3--font-weight: 600;
+  --text-score: 1rem;
+  --text-score--line-height: 1.25rem;
+  --text-score--font-weight: 600;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.25rem;
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 0.875rem;
+  --text-micro--font-weight: 600;
+
+  /* Radii: badges 4, logos and small buttons 6, buttons 8, cards 12. */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Shadows: active tab, tooltip / popover, dialog / sheet. */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.18);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.16);
+  --shadow-lg: 0 16px 48px oklch(0 0 0 / 0.24);
+
+  /* Layout breakpoints (minimum supported width is 360px):
+     below lg (1024) — mobile layout: compact header + bottom tab bar;
+     lg–nav (1024–1099) — sections move into the «Меню» dropdown;
+     nav–xl (1100–1279) — all sections visible, search collapses to an icon;
+     xl and up (1280) — full header.
+     Kept in rem like Tailwind's defaults so media queries sort correctly. */
+  --breakpoint-nav: 68.75rem;
+
+  /* Spacing stays Tailwind's default 4px step — it matches the 4/8 grid. */
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* Equal-width digits: scores and table columns line up and don't jump. */
+  font-variant-numeric: tabular-nums;
 }

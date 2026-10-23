@@ -151,11 +151,13 @@
 
   --color-overlay: var(--overlay);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  /* Equal-width digits: scores and table columns line up and don't jump. */
+  font-variant-numeric: tabular-nums;
 }

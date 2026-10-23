@@ -9,5 +9,8 @@
   "files.eol": "\n",
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "tailwindCSS.classFunctions": ["cn", "cva"]
+  "tailwindCSS.classFunctions": ["cn", "cva"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

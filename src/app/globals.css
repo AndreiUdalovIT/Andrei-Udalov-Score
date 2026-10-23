@@ -155,6 +155,59 @@
   --font-mono: var(--font-plex-mono);
 }
 
+/* Theme-independent scales from the design sheet. */
+@theme {
+  /* Type scale: `text-h1` sets size, line height and weight together. */
+  --text-score-xl: 3rem;
+  --text-score-xl--line-height: 3.5rem;
+  --text-score-xl--font-weight: 600;
+  --text-display: 2rem;
+  --text-display--line-height: 2.5rem;
+  --text-display--font-weight: 600;
+  --text-h1: 1.5rem;
+  --text-h1--line-height: 2rem;
+  --text-h1--font-weight: 600;
+  --text-h2: 1.125rem;
+  --text-h2--line-height: 1.5rem;
+  --text-h2--font-weight: 600;
+  --text-h3: 0.9375rem;
+  --text-h3--line-height: 1.25rem;
+  --text-h3--font-weight: 600;
+  --text-score: 1rem;
+  --text-score--line-height: 1.25rem;
+  --text-score--font-weight: 600;
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.25rem;
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.125rem;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 0.875rem;
+  --text-micro--font-weight: 600;
+
+  /* Radii: badges 4, logos and small buttons 6, buttons 8, cards 12. */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+
+  /* Shadows: active tab, tooltip / popover, dialog / sheet. */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.18);
+  --shadow-md: 0 4px 12px oklch(0 0 0 / 0.16);
+  --shadow-lg: 0 16px 48px oklch(0 0 0 / 0.24);
+
+  /* Layout breakpoints (minimum supported width is 360px):
+     below lg (1024) — mobile layout: compact header + bottom tab bar;
+     lg–nav (1024–1099) — sections move into the «Меню» dropdown;
+     nav–xl (1100–1279) — all sections visible, search collapses to an icon;
+     xl and up (1280) — full header.
+     Kept in rem like Tailwind's defaults so media queries sort correctly. */
+  --breakpoint-nav: 68.75rem;
+
+  /* Spacing stays Tailwind's default 4px step — it matches the 4/8 grid. */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

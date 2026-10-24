@@ -13,6 +13,11 @@ describe('cn', () => {
     expect(cn('text-body text-loss', 'text-micro')).toBe('text-loss text-micro');
   });
 
+  it('drops an earlier leading-* when a size follows — put leading last', () => {
+    expect(cn('leading-3.5', 'text-caption')).toBe('text-caption');
+    expect(cn('text-caption', 'leading-3.5')).toBe('text-caption leading-3.5');
+  });
+
   it('still resolves regular Tailwind conflicts', () => {
     expect(cn('px-2 py-1', 'px-4', false && 'hidden')).toBe('py-1 px-4');
   });

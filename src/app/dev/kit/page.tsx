@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { FootballSection } from './football-section';
+import { Section } from './section';
 import { ThemeSwitcher } from './theme-switcher';
+import { UiSection } from './ui-section';
 
 export const metadata: Metadata = {
   title: 'Токены и компоненты',
@@ -174,9 +177,7 @@ export default function DevKitPage() {
   if (process.env.VERCEL_ENV === 'production') notFound();
 
   return (
-    <main
-      className="mx-auto flex w-full max-w-[1280px] flex-col gap-8 px-4 py-8 lg:px-8"
-    >
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-8 lg:px-8">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-1">
           <p className="text-caption text-muted-foreground">
@@ -295,16 +296,10 @@ export default function DevKitPage() {
           ))}
         </div>
       </Section>
-    </main>
-  );
-}
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="flex flex-col gap-4">
-      <h2 className="text-h2">{title}</h2>
-      <div className="rounded-lg border border-border bg-card p-5">{children}</div>
-    </section>
+      <FootballSection />
+      <UiSection />
+    </main>
   );
 }
 

@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+/* Enter/exit animations used by shadcn/ui components. */
+@import 'tw-animate-css';
+/* shadcn/ui variants (`data-open:`…) and utilities (`no-scrollbar`, `scroll-fade`). */
+@import '../styles/shadcn.css';
 
 /* Dark theme follows the `dark` class on <html> (set by next-themes),
    so a manual choice can override the OS setting. */
@@ -43,6 +47,9 @@
 
   /* Backdrop under dialogs and sheets, same in both themes */
   --overlay: oklch(0.12 0.01 255 / 0.62);
+
+  /* Base radius shadcn/ui derives control corners from (inputs): 8px, like buttons */
+  --radius: 0.5rem;
 }
 
 .dark {
@@ -206,6 +213,17 @@
   --breakpoint-nav: 68.75rem;
 
   /* Spacing stays Tailwind's default 4px step — it matches the 4/8 grid. */
+}
+
+@layer base {
+  /* Tailwind v4 draws a bare `border` in currentColor; shadcn/ui components
+     expect the theme border and a soft focus outline by default. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
 }
 
 body {

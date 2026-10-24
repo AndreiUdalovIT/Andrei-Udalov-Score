@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+
+import { Toaster } from '@/components/ui/sonner';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import './globals.css';
 
 // Variable font: one file covers every weight from 100 to 700.
@@ -34,7 +37,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TooltipProvider>{children}</TooltipProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

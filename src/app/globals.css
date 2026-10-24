@@ -47,6 +47,9 @@
 
   /* Backdrop under dialogs and sheets, same in both themes */
   --overlay: oklch(0.12 0.01 255 / 0.62);
+
+  /* Base radius shadcn/ui derives control corners from (inputs): 8px, like buttons */
+  --radius: 0.5rem;
 }
 
 .dark {

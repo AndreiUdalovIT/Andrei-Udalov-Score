@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { FootballSection } from './football-section';
+import { Section } from './section';
 import { ThemeSwitcher } from './theme-switcher';
+import { UiSection } from './ui-section';
 
 export const metadata: Metadata = {
   title: 'Токены и компоненты',
@@ -293,16 +296,10 @@ export default function DevKitPage() {
           ))}
         </div>
       </Section>
-    </main>
-  );
-}
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="flex flex-col gap-4">
-      <h2 className="text-h2">{title}</h2>
-      <div className="rounded-lg border border-border bg-card p-5">{children}</div>
-    </section>
+      <FootballSection />
+      <UiSection />
+    </main>
   );
 }
 

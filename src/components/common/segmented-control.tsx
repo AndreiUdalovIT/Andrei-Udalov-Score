@@ -7,7 +7,8 @@ export type SegmentOption<T extends string> = { value: T; label: ReactNode };
 
 type SegmentedControlProps<T extends string> = {
   options: readonly SegmentOption<T>[];
-  value: T;
+  /** `null` — nothing is selected yet, e.g. a stored preference before hydration. */
+  value: T | null;
   /** Receives exactly one of the option values, typed as `T`. */
   onChange: (value: T) => void;
   /** What is being chosen, read by screen readers: «Тема», «Таблица». */
@@ -30,7 +31,8 @@ export function SegmentedControl<T extends string>({
 }: SegmentedControlProps<T>) {
   return (
     <RadioGroup.Root
-      value={value}
+      // An empty string keeps Radix controlled while matching no option.
+      value={value ?? ''}
       // Radix hands back a plain string; map it to the typed option value.
       onValueChange={(next) => {
         const option = options.find((o) => o.value === next);

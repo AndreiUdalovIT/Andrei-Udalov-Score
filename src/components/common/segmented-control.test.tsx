@@ -49,6 +49,18 @@ describe('SegmentedControl', () => {
     expect(screen.getByRole('radio', { name: 'Все' })).not.toBeChecked();
   });
 
+  it('selects nothing while the value is unknown', () => {
+    render(
+      <SegmentedControl
+        options={OPTIONS}
+        value={null}
+        onChange={() => {}}
+        label="Тема"
+      />,
+    );
+    expect(screen.queryByRole('radio', { checked: true })).toBeNull();
+  });
+
   it('reports a clicked option', async () => {
     const { onChange, user } = setup();
     await user.click(screen.getByRole('radio', { name: 'В гостях' }));

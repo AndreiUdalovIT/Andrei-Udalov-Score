@@ -36,6 +36,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       toastOptions={{
         classNames: {
           toast: 'cn-toast',
+          // «Вернуть» from the design: a plain underlined word, not a pill.
+          actionButton: `bg-transparent! font-semibold! text-(--normal-text)! underline
+          underline-offset-3`,
         },
       }}
       {...props}

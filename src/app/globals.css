@@ -215,6 +215,17 @@
   /* Spacing stays Tailwind's default 4px step — it matches the 4/8 grid. */
 }
 
+@layer base {
+  /* Tailwind v4 draws a bare `border` in currentColor; shadcn/ui components
+     expect the theme border and a soft focus outline by default. */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+/* Enter/exit animations used by shadcn/ui components. */
+@import 'tw-animate-css';
+/* shadcn/ui variants (`data-open:`…) and utilities (`no-scrollbar`, `scroll-fade`). */
+@import '../styles/shadcn.css';
 
 /* Dark theme follows the `dark` class on <html> (set by next-themes),
    so a manual choice can override the OS setting. */

@@ -1,4 +1,5 @@
 import { BottomTabBar } from '@/components/layout/bottom-tab-bar';
+import { Footer } from '@/components/layout/footer';
 import { Header } from '@/components/layout/header';
 
 // Shell shared by every site page. `/dev/kit` lives outside the `(site)` group,
@@ -10,6 +11,7 @@ export default function SiteLayout({ children }: LayoutProps<'/'>) {
       <main id="content" className="mx-auto w-full max-w-7xl flex-1 px-4 lg:px-8">
         {children}
       </main>
+      <Footer />
       <BottomTabBar />
     </>
   );

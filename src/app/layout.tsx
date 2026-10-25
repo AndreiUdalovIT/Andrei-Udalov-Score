@@ -19,7 +19,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Udalov Score',
+  title: { template: '%s · Udalov Score', default: 'Udalov Score' },
   description: 'Футбольная статистика и прогнозы матчей топ-5 лиг и Лиги чемпионов',
 };
 

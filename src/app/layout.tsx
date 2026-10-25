@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { IBM_Plex_Mono, IBM_Plex_Sans } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 
@@ -21,6 +21,12 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: { template: '%s · Udalov Score', default: 'Udalov Score' },
   description: 'Футбольная статистика и прогнозы матчей топ-5 лиг и Лиги чемпионов',
+};
+
+// `cover` lets the page reach under the iPhone notch and home indicator;
+// without it `env(safe-area-inset-*)` stays 0 and the tab bar can't clear them.
+export const viewport: Viewport = {
+  viewportFit: 'cover',
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

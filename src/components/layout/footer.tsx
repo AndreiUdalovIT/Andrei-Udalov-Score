@@ -7,11 +7,22 @@ import { siteLinks } from '@/lib/config/site';
 const LINK =
   'inline-flex min-h-6 items-center gap-1 font-medium text-foreground hover:text-primary';
 
-function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+/** Opens in a new tab and tells screen readers so; `arrow` — the visible hint. */
+function ExternalLink({
+  href,
+  arrow = true,
+  children,
+}: {
+  href: string;
+  arrow?: boolean;
+  children: ReactNode;
+}) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className={LINK}>
       {children}
-      <ArrowUpRight aria-hidden="true" className="size-3 text-muted-foreground" />
+      {arrow && (
+        <ArrowUpRight aria-hidden="true" className="size-3 text-muted-foreground" />
+      )}
       <span className="sr-only"> (откроется в новой вкладке)</span>
     </a>
   );
@@ -39,14 +50,9 @@ export function Footer({ syncLabel = null }: { syncLabel?: string | null }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 lg:gap-x-4">
           <span>
             Данные —{' '}
-            <a
-              href={siteLinks.dataSource}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={LINK}
-            >
+            <ExternalLink href={siteLinks.dataSource} arrow={false}>
               football-data.org
-            </a>
+            </ExternalLink>
           </span>
           {/* The last successful sync arrives with the data in stage 1. */}
           {syncLabel && <span>Обновлено {syncLabel}</span>}

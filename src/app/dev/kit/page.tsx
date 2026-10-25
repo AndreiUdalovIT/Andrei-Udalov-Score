@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { ThemeSwitcher } from '@/components/common/theme-switcher';
+
 import { FootballSection } from './football-section';
 import { Section } from './section';
-import { ThemeSwitcher } from './theme-switcher';
 import { UiSection } from './ui-section';
 
 export const metadata: Metadata = {

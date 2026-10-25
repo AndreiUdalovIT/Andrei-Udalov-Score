@@ -1,19 +1,23 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 import { isNavActive, tabBarNav } from '@/lib/config/nav';
 import { cn } from '@/lib/utils';
+
+import { withPathname } from './with-pathname';
+
+type TabBarProps = { signedIn?: boolean };
 
 /**
  * Bottom navigation below 1024px. Sticky rather than fixed: it is the last
  * block of the page, so it pins to the screen bottom yet never covers the
  * footer. The bottom padding clears the iPhone home indicator.
  */
-export function BottomTabBar({ signedIn = false }: { signedIn?: boolean }) {
-  const pathname = usePathname();
-
+export const BottomTabBar = withPathname<TabBarProps>(function BottomTabBarView({
+  signedIn = false,
+  pathname,
+}: TabBarProps & { pathname: string | null }) {
   return (
     <nav
       aria-label="Разделы"
@@ -21,7 +25,8 @@ export function BottomTabBar({ signedIn = false }: { signedIn?: boolean }) {
         pb-[env(safe-area-inset-bottom)] lg:hidden"
     >
       {tabBarNav(signedIn).map((item) => {
-        const active = isNavActive(item.href, pathname);
+        // `null` path — the build-time fallback: nothing is highlighted.
+        const active = pathname !== null && isNavActive(item.href, pathname);
         return (
           <Link
             key={item.label}
@@ -51,4 +56,4 @@ export function BottomTabBar({ signedIn = false }: { signedIn?: boolean }) {
       })}
     </nav>
   );
-}
+});

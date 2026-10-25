@@ -17,6 +17,7 @@ export default function NotFound() {
         <EmptyState
           icon={SearchX}
           title="Страница не найдена"
+          titleAs="h1"
           text="Возможно, ссылка устарела или в адресе опечатка."
           actions={
             <Button size="lg" asChild>

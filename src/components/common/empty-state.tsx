@@ -15,8 +15,6 @@ type EmptyStateProps = {
    * `dashed` — a quieter hint inside a section («Только мои команды» found nothing).
    */
   variant?: 'card' | 'dashed';
-  /** `h1` when the empty state is the whole page (404); inside a section — `p`. */
-  titleAs?: 'p' | 'h1';
   className?: string;
 };
 
@@ -26,7 +24,6 @@ export function EmptyState({
   icon: Icon,
   actions,
   variant = 'card',
-  titleAs: Title = 'p',
   className,
 }: EmptyStateProps) {
   const card = variant === 'card';
@@ -50,9 +47,9 @@ export function EmptyState({
           <Icon className="size-4" strokeWidth={1.75} />
         </span>
       )}
-      <Title className={cn('font-semibold', card ? 'mt-1 text-base' : 'text-body')}>
+      <p className={cn('font-semibold', card ? 'mt-1 text-base' : 'text-body')}>
         {title}
-      </Title>
+      </p>
       {text && (
         <p className="max-w-100 text-body-sm text-pretty text-muted-foreground">
           {text}

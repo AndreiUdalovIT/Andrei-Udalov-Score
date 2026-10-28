@@ -3,3 +3,5 @@ pnpm-lock.yaml
 AGENTS.md
 # Vendored from shadcn, kept identical to upstream.
 src/styles/shadcn.css
+# Written by drizzle-kit; reformatting would show up in every new migration.
+src/server/db/migrations

@@ -1,7 +1,8 @@
 // Database schema. Drizzle builds both the TypeScript types and the SQL
-// migrations from this file. Primary keys are the ids from football-data.org:
-// upserts need no lookups, and `/teams/57` is the row with id 57.
+// migrations from this file. Where football-data.org has an id, it is the
+// primary key: upserts need no lookups, and `/teams/57` is the row with id 57.
 import {
+  date,
   index,
   integer,
   pgTable,
@@ -85,3 +86,86 @@ export const matches = pgTable(
     index('matches_away_team_idx').on(t.awayTeamId),
   ],
 );
+
+/**
+ * The overall table only: the API sends no home and away tables, so those
+ * are computed from matches. The key also serves «the table of a competition».
+ */
+export const standings = pgTable(
+  'standings',
+  {
+    competitionId: integer()
+      .notNull()
+      .references(() => competitions.id),
+    season: integer().notNull(),
+    teamId: integer()
+      .notNull()
+      .references(() => teams.id),
+    position: integer().notNull(),
+    playedGames: integer().notNull(),
+    won: integer().notNull(),
+    draw: integer().notNull(),
+    lost: integer().notNull(),
+    points: integer().notNull(),
+    goalsFor: integer().notNull(),
+    goalsAgainst: integer().notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.competitionId, t.season, t.teamId] })],
+);
+
+export const scorers = pgTable(
+  'scorers',
+  {
+    competitionId: integer()
+      .notNull()
+      .references(() => competitions.id),
+    season: integer().notNull(),
+    playerId: integer().notNull(),
+    // Kept here: a scorer may have left the club and no longer be in a squad.
+    playerName: text().notNull(),
+    teamId: integer()
+      .notNull()
+      .references(() => teams.id),
+    // The API sends null for zero assists or penalties.
+    playedMatches: integer().notNull().default(0),
+    goals: integer().notNull().default(0),
+    assists: integer().notNull().default(0),
+    penalties: integer().notNull().default(0),
+  },
+  (t) => [primaryKey({ columns: [t.competitionId, t.season, t.playerId] })],
+);
+
+/** Current squads; the API has no shirt numbers. */
+export const squadPlayers = pgTable(
+  'squad_players',
+  {
+    id: integer().primaryKey(),
+    teamId: integer()
+      .notNull()
+      .references(() => teams.id),
+    name: text().notNull(),
+    position: text(),
+    // A calendar date, not an instant: the age must not shift with time zones.
+    dateOfBirth: date({ mode: 'string' }),
+    nationality: text(),
+  },
+  (t) => [index('squad_players_team_idx').on(t.teamId)],
+);
+
+export type SyncMode = 'light' | 'full' | 'seed';
+export type SyncStatus = 'running' | 'ok' | 'error';
+
+/**
+ * One row per sync run. «Обновлено N ч назад» reads the latest `ok`, so a
+ * run that died while `running` does not hide the last good one.
+ */
+export const syncRuns = pgTable('sync_runs', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  mode: text().$type<SyncMode>().notNull(),
+  status: text().$type<SyncStatus>().notNull(),
+  startedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+  finishedAt: timestamp({ withTimezone: true }),
+  /** football-data.org requests made, against the 10 per minute limit. */
+  requests: integer().notNull().default(0),
+  error: text(),
+});

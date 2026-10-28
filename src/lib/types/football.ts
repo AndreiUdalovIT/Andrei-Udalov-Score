@@ -24,5 +24,14 @@ export const MATCH_STATUSES = [
 
 export type MatchStatus = (typeof MATCH_STATUSES)[number];
 
+/** How a match ended: in 90 minutes, after extra time or on penalties. */
+export const MATCH_DURATIONS = [
+  'REGULAR',
+  'EXTRA_TIME',
+  'PENALTY_SHOOTOUT',
+] as const;
+
+export type MatchDuration = (typeof MATCH_DURATIONS)[number];
+
 /** League table zone; each maps to a `--zone-*` color token. */
 export type Zone = 'ucl' | 'uel' | 'uecl' | 'playoff' | 'releg';

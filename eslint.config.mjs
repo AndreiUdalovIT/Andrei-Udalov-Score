@@ -17,6 +17,11 @@ const eslintConfig = defineConfig([
     'next-env.d.ts',
     // Local design mockups (gitignored), ESLint does not read .gitignore.
     'design/**',
+    // Generated browser reports and traces are not application source.
+    'playwright-report/**',
+    'test-results/**',
+    'blob-report/**',
+    'playwright/**',
   ]),
 ]);
 

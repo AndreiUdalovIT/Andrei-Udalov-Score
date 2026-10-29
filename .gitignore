@@ -50,4 +50,7 @@ next-env.d.ts
 /playwright/.cache/
 /playwright/.auth/
 
+# local agent instructions
+/AGENTS.md
+
 /docs/

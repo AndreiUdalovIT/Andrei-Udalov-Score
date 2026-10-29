@@ -42,3 +42,15 @@ next-env.d.ts
 
 # design mockups (local reference only)
 /design/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# local agent instructions
+/AGENTS.md
+
+/docs/

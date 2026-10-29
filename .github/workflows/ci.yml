@@ -34,4 +34,14 @@ jobs:
       - run: pnpm typecheck
       - run: pnpm format:check
       - run: pnpm test
-      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps
+      # Playwright builds and starts the app once for all browser projects.
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
+        with:
+          name: playwright-results
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
